@@ -210,10 +210,17 @@ void stringCheck(){
   }
 }
 
+/*void tempoDeGiro()
+{
+  double danilo = fabs(correctFrequency-frequency)/correctFrequency;
+  delay(1000*danilo);
+  allLEDsOff();
+}
+*/
+
 //Compare the frequency input to the correct 
 //frequency and light up the appropriate LEDS
 void frequencyCheck(){
-
     if (correctFrequency == 0)
     {
       allLEDsOff();
@@ -223,14 +230,14 @@ void frequencyCheck(){
     else if (frequency > correctFrequency + 2){
       digitalWrite(2,1);
       Serial.println("2");
-
       display.drawBitmap(54, 10, setabaixo, 16, 16, WHITE);
+      //tempoDeGiro();
     }
     else if (frequency < correctFrequency - 2){
       digitalWrite(3,1);
       Serial.println("3");
-
       display.drawBitmap(54, 10, setacima, 16, 16, WHITE);
+      //tempoDeGiro();
     }  
     else {  //if(frequency>correctFrequency-1&frequency<correctFrequency+1)
       /*Está afinada*/
@@ -240,7 +247,6 @@ void frequencyCheck(){
       Serial.println("afinada");
       allLEDsOff();
     }
-  
 }
 
 void allLEDsOff(){
@@ -252,6 +258,7 @@ void loop(){
   display.clearDisplay();
 
   allLEDsOff();
+  frequency = 0;
   
   if (checkMaxAmp>ampThreshold){
     frequency = 38462/float(period);//calculate frequency timer rate/period
@@ -264,6 +271,6 @@ void loop(){
   Serial.println();
   
   display.display();
-  delay(100);
+  delay(1000);
  
 }
