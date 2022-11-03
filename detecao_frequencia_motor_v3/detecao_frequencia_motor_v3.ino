@@ -228,13 +228,13 @@ void frequencyCheck(){
     }
     //verifica se a diferença entre a frequencia da guitarra e a frequencia alvo é maior que 1
     else if (frequency > correctFrequency + 2){
-      digitalWrite(2,1);
+      digitalWrite(3,1);
       Serial.println("2");
       display.drawBitmap(54, 10, setabaixo, 16, 16, WHITE);
       //tempoDeGiro();
     }
     else if (frequency < correctFrequency - 2){
-      digitalWrite(3,1);
+      digitalWrite(2,1);
       Serial.println("3");
       display.drawBitmap(54, 10, setacima, 16, 16, WHITE);
       //tempoDeGiro();
@@ -271,6 +271,6 @@ void loop(){
   Serial.println();
   
   display.display();
-  delay(1000);
+  delay(100);
  
 }
