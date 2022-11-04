@@ -47,6 +47,9 @@ byte ampThreshold = 20;//raise if you have a very noisy signal
 //variables for tuning
 float correctFrequency;//the correct frequency for the string being played
 
+//Qual corda esta
+char corda;
+
 //bitmaps das setas
 const unsigned char setacima [] PROGMEM = {
   0x01, 0x80, 0x03, 0xc0, 0x07, 0xe0, 0x07, 0xe0, 0x0f, 0xf0, 0x1f, 0xf8, 0x3f, 0xfc, 0x07, 0xe0, 
@@ -177,31 +180,37 @@ void stringCheck(){
   if(frequency>70&frequency<90){
     /*printar no display "corda E"*/
     display.println("corda E");
+    corda = 'E';
     correctFrequency = 82.4;
   }
   else if(frequency>100&frequency<120){
     /*printar no display "corda A"*/
     display.println("corda A");
+    corda = 'A';
     correctFrequency = 110;
   }
   else if(frequency>135&frequency<155){
     /*printar no display "corda D"*/
     display.println("corda D");
+    corda = 'D';
     correctFrequency = 146.8;
   }
-  else if(frequency>186&frequency<205){
+  else if(frequency>176&frequency<205){
     /*printar no display "corda G"*/
     display.println("corda G");
+    corda = 'G';
     correctFrequency = 196;
   }
-  else if(frequency>235&frequency<255){
+  else if(frequency>225&frequency<265){
     /*printar no display "corda B"*/
     display.println("corda B");
+    corda = 'B';
     correctFrequency = 246.9;
   }
-  else if(frequency>320&frequency<340){
+  else if(frequency>300&frequency<340){
     /*printar no display "corda e"*/
     display.println("corda e");
+    corda = 'I';
     correctFrequency = 329.6;
   }
   else//detectou um valor de frequencia discrepante
@@ -229,16 +238,51 @@ void frequencyCheck(){
     //verifica se a diferença entre a frequencia da guitarra e a frequencia alvo é maior que 1
     else if (frequency > correctFrequency + 2){
       digitalWrite(3,1);
-      Serial.println("2");
+      Serial.println("3");
       display.drawBitmap(54, 10, setabaixo, 16, 16, WHITE);
-      //tempoDeGiro();
+      if(corda == 'E'){
+        delay(100);
+      }
+      else if(corda == 'A'){
+        delay(200);
+      }
+      else if(corda == 'D'){
+        delay(300);
+       }
+      else if(corda == 'G'){
+        delay(400);
+      }
+      else if(corda == 'B'){
+        delay(500);
+      }
+      else{//corda e
+        delay(900);
+      }
     }
     else if (frequency < correctFrequency - 2){
       digitalWrite(2,1);
-      Serial.println("3");
+      Serial.println("2");
       display.drawBitmap(54, 10, setacima, 16, 16, WHITE);
-      //tempoDeGiro();
-    }  
+      if(corda == 'E'){
+        delay(100);
+      }
+      else if(corda == 'A'){
+        delay(200);
+      }
+      else if(corda == 'D'){
+        delay(300);
+       }
+      else if(corda == 'G'){
+        delay(400);
+      }
+      else if(corda == 'B'){
+        delay(500);
+    }
+      else{//corda e
+        delay(900);
+    }
+      
+  }  
     else {  //if(frequency>correctFrequency-1&frequency<correctFrequency+1)
       /*Está afinada*/
       display.setCursor(10, 10);
@@ -256,9 +300,11 @@ void allLEDsOff(){
 
 void loop(){
   display.clearDisplay();
-
+  
+  //reseta as entradas lógicas do motor e as variaveis frequency e corda
   allLEDsOff();
   frequency = 0;
+  corda = 'N';
   
   if (checkMaxAmp>ampThreshold){
     frequency = 38462/float(period);//calculate frequency timer rate/period
@@ -271,6 +317,6 @@ void loop(){
   Serial.println();
   
   display.display();
-  delay(100);
+  //delay(100);
  
 }
