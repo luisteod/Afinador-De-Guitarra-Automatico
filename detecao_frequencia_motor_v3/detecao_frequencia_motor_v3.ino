@@ -237,80 +237,48 @@ void frequencyCheck(){
     }
     //verifica se a diferença entre a frequencia da guitarra e a frequencia alvo é maior que 1
     else if (frequency > correctFrequency + 2){
+      digitalWrite(3,1);
+      Serial.println("3");
+      display.drawBitmap(54, 10, setabaixo, 16, 16, WHITE);
       if(corda == 'E'){
-        digitalWrite(3,1);
-        Serial.println("2");
-        display.drawBitmap(54, 10, setabaixo, 16, 16, WHITE);
         delay(100);
       }
       else if(corda == 'A'){
-        digitalWrite(3,1);
-        Serial.println("2");
-        display.drawBitmap(54, 10, setabaixo, 16, 16, WHITE);
         delay(200);
       }
       else if(corda == 'D'){
-        digitalWrite(3,1);
-        Serial.println("2");
-        display.drawBitmap(54, 10, setabaixo, 16, 16, WHITE);
         delay(300);
        }
       else if(corda == 'G'){
-        digitalWrite(3,1);
-        Serial.println("2");
-        display.drawBitmap(54, 10, setabaixo, 16, 16, WHITE);
         delay(400);
       }
       else if(corda == 'B'){
-        digitalWrite(3,1);
-        Serial.println("2");
-        display.drawBitmap(54, 10, setabaixo, 16, 16, WHITE);
         delay(500);
-    }
-    else{
-        digitalWrite(3,1);
-        Serial.println("2");
-        display.drawBitmap(54, 10, setabaixo, 16, 16, WHITE);
+      }
+      else{//corda e
         delay(900);
+      }
     }
-  }
-
-
     else if (frequency < correctFrequency - 2){
+      digitalWrite(2,1);
+      Serial.println("2");
+      display.drawBitmap(54, 10, setacima, 16, 16, WHITE);
       if(corda == 'E'){
-        digitalWrite(2,1);
-        Serial.println("3");
-        display.drawBitmap(54, 10, setacima, 16, 16, WHITE);
         delay(100);
       }
       else if(corda == 'A'){
-        digitalWrite(2,1);
-        Serial.println("3");
-        display.drawBitmap(54, 10, setacima, 16, 16, WHITE);
         delay(200);
       }
       else if(corda == 'D'){
-        digitalWrite(2,1);
-        Serial.println("3");
-        display.drawBitmap(54, 10, setacima, 16, 16, WHITE);
         delay(300);
        }
       else if(corda == 'G'){
-        digitalWrite(2,1);
-        Serial.println("3");
-        display.drawBitmap(54, 10, setacima, 16, 16, WHITE);
         delay(400);
       }
       else if(corda == 'B'){
-        digitalWrite(2,1);
-        Serial.println("3");
-        display.drawBitmap(54, 10, setacima, 16, 16, WHITE);
         delay(500);
     }
-      else{
-        digitalWrite(2,1);
-        Serial.println("3");
-        display.drawBitmap(54, 10, setacima, 16, 16, WHITE);
+      else{//corda e
         delay(900);
     }
       
@@ -332,7 +300,8 @@ void allLEDsOff(){
 
 void loop(){
   display.clearDisplay();
-
+  
+  //reseta as entradas lógicas do motor e as variaveis frequency e corda
   allLEDsOff();
   frequency = 0;
   corda = 'N';
