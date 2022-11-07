@@ -217,6 +217,16 @@ void stringCheck(){
   {
     correctFrequency = 0;
   }
+  if (frequency < 400 & frequency > 70){
+    display.setCursor(70, 0);
+    display.print(frequency);
+  }
+  display.setCursor(110, 0);
+  display.println("Hz");
+}
+void allLEDsOff(){
+  digitalWrite(2,0);
+  digitalWrite(3,0);
 }
 
 void tempoDeGiro()
@@ -226,76 +236,39 @@ void tempoDeGiro()
   allLEDsOff();
 }
 
-
 //Compare the frequency input to the correct 
 //frequency and light up the appropriate LEDS
 void frequencyCheck(){
+  //Se a frequencia for discrepante
     if (correctFrequency == 0)
     {
       allLEDsOff();
-      //Serial.println("frequencia discrepante");
     }
     //verifica se a diferença entre a frequencia da guitarra e a frequencia alvo é maior que 1
     else if (frequency > correctFrequency + 2){
       digitalWrite(3,1);
       Serial.println("3");
       display.drawBitmap(54, 10, setabaixo, 16, 16, WHITE);
-      if(corda == 'E'){
-        delay(100);
-      }
-      else if(corda == 'A'){
-        delay(200);
-      }
-      else if(corda == 'D'){
-        delay(300);
-       }
-      else if(corda == 'G'){
-        delay(400);
-      }
-      else if(corda == 'B'){
-        delay(500);
-      }
-      else{//corda e
-        delay(900);
-      }
-    }
+      display.display();
+      tempoDeGiro();
+  }
     else if (frequency < correctFrequency - 2){
       digitalWrite(2,1);
       Serial.println("2");
       display.drawBitmap(54, 10, setacima, 16, 16, WHITE);
-      if(corda == 'E'){
-        delay(100);
-      }
-      else if(corda == 'A'){
-        delay(200);
-      }
-      else if(corda == 'D'){
-        delay(300);
-       }
-      else if(corda == 'G'){
-        delay(400);
-      }
-      else if(corda == 'B'){
-        delay(500);
-    }
-      else{//corda e
-        delay(900);
-    }
-      
+      display.display();
+      tempoDeGiro();
+    
   }  
-    else {  //if(frequency>correctFrequency-1&frequency<correctFrequency+1)
-      /*Está afinada*/
+    else { 
       display.setCursor(10, 10);
       display.setTextSize(2);
       display.println("afinada!");
       Serial.println("afinada");
+      display.display();
+      delay(500);
       allLEDsOff();
     }
-}
-
-void allLEDsOff(){
-  digitalWrite(2,0);
-  digitalWrite(3,0);
 }
 
 void loop(){
@@ -315,8 +288,6 @@ void loop(){
   frequencyCheck();
   Serial.print(frequency);
   Serial.println();
-  
   display.display();
-  //delay(100);
  
 }
