@@ -219,13 +219,13 @@ void stringCheck(){
   }
 }
 
-/*void tempoDeGiro()
+void tempoDeGiro()
 {
-  double danilo = fabs(correctFrequency-frequency)/correctFrequency;
-  delay(1000*danilo);
+  double razao = fabs(frequency - correctFrequency)*correctFrequency;
+  delay(razao/2);
   allLEDsOff();
 }
-*/
+
 
 //Compare the frequency input to the correct 
 //frequency and light up the appropriate LEDS
